@@ -1,4 +1,3 @@
-// src/components/Header.tsx
 import React from "react";
 import {
   AppBar,
@@ -10,6 +9,7 @@ import {
 } from "@mui/material";
 import NavButton from "./NavButton";
 import logo from "../assets/Logos/Logotipo_Negro.png";
+import noiseTexture from "../assets/noiseTexture.png";
 
 const Header: React.FC = () => {
   const theme = useTheme();
@@ -17,14 +17,23 @@ const Header: React.FC = () => {
 
   return (
     <AppBar
-      position="static"
+      position="fixed"
       sx={{
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
-        backdropFilter: "blur(6px)",
-        backgroundImage:
-          'url("https://www.transparenttextures.com/patterns/asfalt-light.png")',
-        backgroundRepeat: "repeat",
+        backgroundColor: "rgba(0, 0, 0, 0.6)", // Transparencia
+        backdropFilter: "blur(6px)", // Efecto de desenfoque
+        backgroundImage: `url(${noiseTexture})`, // Textura de ruido
+        backgroundRepeat: "repeat", // Patrón repetido
         backgroundBlendMode: "overlay",
+        boxShadow: "none",
+        animation: "staticNoise 3s steps(20) infinite", // Animación de estática más lenta
+        "@keyframes staticNoise": {
+          "0%": {
+            backgroundPosition: "0 0",
+          },
+          "100%": {
+            backgroundPosition: "200px 200px", // Simula movimiento en todas direcciones
+          },
+        },
       }}
     >
       <Toolbar sx={{ p: 2, display: "flex", alignItems: "center" }}>

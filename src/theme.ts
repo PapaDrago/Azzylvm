@@ -32,6 +32,20 @@ const theme = createTheme({
     },
     // Puedes personalizar más variantes según necesites
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        "::-moz-selection": {
+          backgroundColor: "#D9A76C", // Café amarillento
+          color: "#000", // Texto negro
+        },
+        "::selection": {
+          backgroundColor: "#D9A76C", // Café amarillento
+          color: "#000", // Texto negro
+        },
+      },
+    },
+  },
 });
 
 export default theme;

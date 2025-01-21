@@ -1,15 +1,14 @@
 // src/App.tsx
 import Header from "./components/Header";
-import { Container } from "@mui/material";
+import Home from "./pages/Home";
+import Video from "./pages/Video";
 
 function App() {
   return (
     <>
       <Header />
-      <Container maxWidth="xl">
-        <h1>¡Hola, Azzylvm!</h1>
-        <p>Empieza a desarrollar tu página aquí.</p>
-      </Container>
+      <Home />
+      <Video />
     </>
   );
 }
