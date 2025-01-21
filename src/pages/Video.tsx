@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, keyframes } from "@mui/material";
 import astronaut from "../assets/BlackHole/edit/astronauta.png";
 import astronautBackground from "../assets/BlackHole/edit/astronautaBackground.jpg";
@@ -14,6 +14,8 @@ const blackHoleAnimation = keyframes`
     opacity: 0;
   }
 `;
+
+// Animación para ruido
 const noiseAnimation = keyframes`
   0% {
     filter: contrast(1) brightness(1);
@@ -56,6 +58,29 @@ const floatingAnimation = keyframes`
 `;
 
 const Video: React.FC = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const onMessage = (event: MessageEvent) => {
+      if (
+        event.data &&
+        typeof event.data === "string" &&
+        event.data.startsWith('{"event":"')
+      ) {
+        const data = JSON.parse(event.data);
+        if (data.event === "onStateChange") {
+          // YouTube states: 1 = playing, 2 = paused
+          setIsPlaying(data.info === 1);
+        }
+      }
+    };
+
+    window.addEventListener("message", onMessage);
+    return () => {
+      window.removeEventListener("message", onMessage);
+    };
+  }, []);
+
   return (
     <Box
       sx={{
@@ -140,7 +165,7 @@ const Video: React.FC = () => {
         }}
       />
 
-      {/* Astronauta flotante con hover de ruido */}
+      {/* Astronauta flotante con hover y efecto al reproducir */}
       <Box
         component="img"
         src={astronaut}
@@ -151,19 +176,22 @@ const Video: React.FC = () => {
           left: 20,
           width: "20vmin",
           height: "auto",
-          animation: `${floatingAnimation} 3s ease-in-out infinite`,
           zIndex: 3,
           cursor: "pointer",
+          animation: isPlaying
+            ? `${noiseAnimation} 0.5s steps(5, end) infinite`
+            : `${floatingAnimation} 3s ease-in-out infinite`,
           "&:hover": {
             animation: `${noiseAnimation} 0.5s steps(5, end) infinite`,
           },
         }}
       />
+
       {/* Video de YouTube */}
       <iframe
         width="850"
         height="500"
-        src="https://www.youtube.com/embed/Yp50GlV_b14"
+        src="https://www.youtube.com/embed/Yp50GlV_b14?enablejsapi=1"
         title="Azzylum - In The Highest (Official Music Video)"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
