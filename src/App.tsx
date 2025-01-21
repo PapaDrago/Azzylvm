@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <Header />
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <h1>¡Hola, Azzylvm!</h1>
         <p>Empieza a desarrollar tu página aquí.</p>
       </Container>
