@@ -24,10 +24,11 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /* display: flex;        <-- quítalo */
+  /* place-items: center;  <-- quítalo */
   min-width: 320px;
   min-height: 100vh;
+  /* O utiliza simplemente: height: 100%; si así lo prefieres */
 }
 
 h1 {
