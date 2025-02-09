@@ -1,4 +1,5 @@
 // src/App.tsx
+import FloatingSocialButton from "./components/FloatingSocialButton";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Images from "./pages/Images";
@@ -11,6 +12,7 @@ function App() {
       <Home />
       <Video />
       <Images />
+      <FloatingSocialButton />
     </>
   );
 }
