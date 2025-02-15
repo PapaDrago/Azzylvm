@@ -8,5 +8,5 @@ export default defineConfig({
     host: true, // O también puedes especificar tu IP, ej: '192.168.1.10'
     port: 3000, // Opcional, para cambiar el puerto
   },
-  base: "https://PapaDrago.github.io/Azzylvm",
+  base: "https://papadrago.github.io/Azzylvm",
 });
