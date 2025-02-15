@@ -1,6 +1,6 @@
 import React from "react";
 import { Masonry } from "@mui/lab";
-import { Container, Grid2, Box } from "@mui/material";
+import { Container, Grid2, Box, useTheme, useMediaQuery } from "@mui/material";
 import bandBlack from "../assets/Band/black.jpg";
 import bandBlue from "../assets/Band/blue.jpg";
 import bandGreen from "../assets/Band/green.jpg";
@@ -20,32 +20,47 @@ interface ImageData {
   alt: string;
   height: number;
   link?: string | null;
+  phone: boolean;
 }
 
 const images: ImageData[] = [
-  { src: bandBlack, alt: "Band Black", height: 300, link: null },
-  { src: bandBlue, alt: "Band Blue", height: 200, link: null },
+  { src: bandBlack, alt: "Band Black", height: 300, link: null, phone: true },
+  { src: bandBlue, alt: "Band Blue", height: 200, link: null, phone: false },
   {
     src: blind,
     alt: "Blind Dog",
-    height: 250,
+    height: 256,
     link: "https://www.youtube.com/watch?v=HBJiGqgGesQ&ab_channel=AZZYLUMOFICIAL",
+    phone: false,
   },
-  { src: bandHand, alt: "Band Hand", height: 300, link: null },
+  { src: bandHand, alt: "Band Hand", height: 300, link: null, phone: true },
   {
     src: high,
     alt: "In the Highest",
-    height: 250,
+    height: 300,
     link: "https://www.youtube.com/watch?v=Yp50GlV_b14&ab_channel=AZZYLUMOFICIAL",
+    phone: false,
   },
-  { src: bandLunatic, alt: "Band Lunatic", height: 200, link: null },
-  { src: bandGreen, alt: "Band Green", height: 200, link: null },
-  { src: only, alt: "The only light", height: 200, link: "/" },
+  {
+    src: bandLunatic,
+    alt: "Band Lunatic",
+    height: 245,
+    link: null,
+    phone: false,
+  },
+  { src: bandGreen, alt: "Band Green", height: 200, link: null, phone: true },
+  { src: only, alt: "The only light", height: 200, link: "/", phone: true },
 ];
 
 const Images: React.FC = () => {
+  const theme = useTheme();
+  // Detectamos si el breakpoint actual es xs (1 columna)
+  const isXs = useMediaQuery(theme.breakpoints.only("xs"));
+
+  // Si es xs, filtramos para mostrar solo las imágenes con phone: true
+  const imagesToShow = isXs ? images.filter((img) => img.phone) : images;
+
   return (
-    // Caja exterior que usa la imagen "orangeBlured" como fondo
     <Box
       sx={{
         backgroundImage: `url(${orange})`,
@@ -57,8 +72,8 @@ const Images: React.FC = () => {
     >
       <Container>
         <Grid2 container spacing={2} m={4}>
-          <Masonry columns={4} spacing={2}>
-            {images.map((image, index) => {
+          <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={2}>
+            {imagesToShow.map((image, index) => {
               const boxContent = (
                 <Box
                   key={index}
@@ -67,14 +82,12 @@ const Images: React.FC = () => {
                     overflow: "hidden",
                     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                     transition: "transform 0.3s, box-shadow 0.3s",
-                    // Estilos generales en hover para todas las imágenes
                     "&:hover": {
                       transform: "scale(1.05)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.15)",
                     },
-                    // Si la imagen tiene link se agregan estilos para overlay animado
                     ...(image.link && {
-                      position: "relative", // Necesario para posicionar la pseudo-capa
+                      position: "relative",
                       cursor: "pointer",
                       "&::after": {
                         content: '""',
@@ -105,7 +118,7 @@ const Images: React.FC = () => {
                     src={image.src}
                     alt={image.alt}
                     style={{
-                      display: "block", // Evita el espacio inferior por elementos inline
+                      display: "block",
                       width: "100%",
                       height: image.height,
                       objectFit: "cover",
@@ -114,7 +127,6 @@ const Images: React.FC = () => {
                 </Box>
               );
 
-              // Si la imagen tiene link se envuelve en un <a> para abrir en nueva pestaña
               return image.link ? (
                 <a
                   key={index}

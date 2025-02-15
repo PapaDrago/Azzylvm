@@ -52,9 +52,10 @@ const Home: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        justifyContent: "center",
+        justifyContent: { sm: "flex-start", md: "center" },
         color: "#FFFFFF",
         padding: 4,
+        pt: { xs: 16, md: 0 },
       }}
     >
       {/* Texto principal */}
@@ -65,7 +66,7 @@ const Home: React.FC = () => {
           textTransform: "uppercase",
           mb: 2,
           color: "#FFFFFF",
-          fontSize: 200,
+          fontSize: { xs: "5rem", sm: "6rem", md: "8rem", lg: 200 },
         }}
       >
         Black Hole

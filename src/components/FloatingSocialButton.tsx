@@ -8,32 +8,38 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import AppleIcon from "@mui/icons-material/Apple";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import bandLogo from "../assets/Logos/Isologo Azzylum_Negro.png";
+import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
 
 const actions = [
   {
     icon: <InstagramIcon />,
     name: "Instagram",
-    url: "https://www.instagram.com/yourband",
-  },
-  {
-    icon: <LibraryMusicIcon />,
-    name: "Spotify",
-    url: "https://open.spotify.com/artist/yourband",
+    url: "https://www.instagram.com/azzylvm.oficial/",
   },
   {
     icon: <FacebookIcon />,
     name: "Facebook",
-    url: "https://www.facebook.com/yourband",
+    url: "https://www.facebook.com/Azzylvm.Oficial?locale=es_LA",
   },
   {
     icon: <YouTubeIcon />,
     name: "YouTube",
-    url: "https://www.youtube.com/yourband",
+    url: "https://www.youtube.com/@azzylumoficial4620",
   },
   {
     icon: <AppleIcon />,
     name: "Apple Music",
-    url: "https://music.apple.com/artist/yourband",
+    url: "https://music.apple.com/mx/artist/azzylum/1512003391",
+  },
+  {
+    icon: <LibraryMusicIcon />,
+    name: "Spotify",
+    url: "https://open.spotify.com/intl-es/artist/2KZlmeXJr5kYGld8NkyrUd",
+  },
+  {
+    icon: <SentimentSatisfiedIcon />,
+    name: "Black Hole",
+    url: "#",
   },
 ];
 
@@ -49,6 +55,9 @@ const FloatingSocialButton: React.FC = () => {
           height: 80,
           transition: "transform 0.3s",
           animation: "float 3s ease-in-out infinite",
+          "&:hover": {
+            backgroundColor: "white", // Evita que se oscurezca al hacer hover
+          },
           "@keyframes float": {
             "0%": { transform: "translateY(0px)" },
             "50%": { transform: "translateY(-5px)" },

@@ -118,8 +118,8 @@ const Video: React.FC = () => {
             position: "absolute",
             top: `${Math.random() * 100}%`,
             left: `${Math.random() * 100}%`,
-            width: "2px",
-            height: "2px",
+            width: "0.5px",
+            height: "0.5px",
             backgroundColor: "white",
             borderRadius: "50%",
             animation: `${blackHoleAnimation} 6s ease-in-out infinite`,
@@ -136,8 +136,8 @@ const Video: React.FC = () => {
             position: "absolute",
             top: `${Math.random() * 100}%`,
             left: `${Math.random() * 100}%`,
-            width: "1px",
-            height: "1px",
+            width: "0.1px", // Reducido de 1px a 0.5px
+            height: "0.1px", // Reducido de 1px a 0.5px
             backgroundColor: "white",
             borderRadius: "50%",
             animation: `${starTwinkleAnimation} ${
