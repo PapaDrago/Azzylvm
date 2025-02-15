@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Masonry } from "@mui/lab";
 import { Container, Grid2, Box, useTheme, useMediaQuery } from "@mui/material";
 import bandBlack from "../assets/Band/black.jpg";
@@ -9,11 +9,15 @@ import bandLunatic from "../assets/Band/lunatic.jpg";
 import blind from "../assets/Portada/blind.jpg";
 import high from "../assets/Portada/high.jpg";
 import only from "../assets/BlackHole/only.jpg";
+import secret from "../assets/Draws/3.png";
+import secret2 from "../assets/Draws/6.png";
 
 // Fondo
 import orange from "../assets/News/orangeBlured.jpg";
 // Textura de ruido para el efecto animado (asegúrate de que la ruta sea correcta)
 import noiseTexture from "../assets/noiseTexture.png";
+
+import SecretModal from "../components/SecretModal";
 
 interface ImageData {
   src: string;
@@ -59,6 +63,11 @@ const Images: React.FC = () => {
 
   // Si es xs, filtramos para mostrar solo las imágenes con phone: true
   const imagesToShow = isXs ? images.filter((img) => img.phone) : images;
+
+  // Estado para abrir el modal del secreto
+  const [secretOpen, setSecretOpen] = useState(false);
+  const handleSecretOpen = () => setSecretOpen(true);
+  const handleSecretClose = () => setSecretOpen(false);
 
   return (
     <Box
@@ -127,23 +136,51 @@ const Images: React.FC = () => {
                 </Box>
               );
 
-              return image.link ? (
-                <a
-                  key={index}
-                  href={image.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  {boxContent}
-                </a>
-              ) : (
-                <React.Fragment key={index}>{boxContent}</React.Fragment>
-              );
+              // Si la imagen tiene URL y NO es la última, se abre en otra pestaña
+              if (image.link && index !== imagesToShow.length - 1) {
+                return (
+                  <a
+                    key={index}
+                    href={image.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "none" }}
+                  >
+                    {boxContent}
+                  </a>
+                );
+              }
+              // Si es la última imagen (secreto), al hacer clic se abre el modal
+              else if (image.link && index === imagesToShow.length - 1) {
+                return (
+                  <Box
+                    key={index}
+                    onClick={handleSecretOpen}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    {boxContent}
+                  </Box>
+                );
+              } else {
+                return (
+                  <React.Fragment key={index}>{boxContent}</React.Fragment>
+                );
+              }
             })}
           </Masonry>
         </Grid2>
       </Container>
+
+      {/* Modal para el secreto */}
+      <SecretModal
+        open={secretOpen}
+        onClose={handleSecretClose}
+        secretId={3}
+        imageURL={secret}
+        imageURL2={secret2}
+        spotifyURL="https://open.spotify.com/embed/track/4xAmbn7xiy6wGOs4oaxv70?utm_source=generator"
+        trackTitle="The Only Light"
+      />
     </Box>
   );
 };

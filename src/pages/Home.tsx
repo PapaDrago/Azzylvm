@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import React, { useState, useContext } from "react";
+import { Box, Typography, Button } from "@mui/material";
 import backgroundImage from "../assets/BlackHole/ghost.jpg";
+import SecretModal from "../components/SecretModal";
+import secret from "../assets/Draws/4.png";
+import secret2 from "../assets/Draws/14.png";
+import { SecretsContext } from "../contexts/SecretsContext";
 
 const getRandomText = (length: number) => {
   const characters =
@@ -17,6 +21,11 @@ const getRandomText = (length: number) => {
 const Home: React.FC = () => {
   const [hoverText, setHoverText] = useState("Próximamente");
   const originalText = "Próximamente";
+  const [open, setOpen] = useState(false);
+  const secretId = 1; // El id del secreto actual
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleMouseEnter = () => {
     const textLength = originalText.length;
@@ -39,6 +48,12 @@ const Home: React.FC = () => {
     const intervalId = setInterval(randomizeText, 80);
   };
 
+  // Accedemos al contexto de secretos para calcular el progreso
+  const { secrets } = useContext(SecretsContext);
+  const totalSecrets = secrets.length;
+  const foundCount = secrets.filter((s) => s.found).length;
+  const progressPercentage = (foundCount / totalSecrets) * 100;
+
   return (
     <Box
       sx={{
@@ -54,7 +69,7 @@ const Home: React.FC = () => {
         alignItems: "flex-start",
         justifyContent: { sm: "flex-start", md: "center" },
         color: "#FFFFFF",
-        padding: 4,
+        p: 4,
         pt: { xs: 16, md: 0 },
       }}
     >
@@ -86,9 +101,44 @@ const Home: React.FC = () => {
           },
         }}
         onMouseEnter={handleMouseEnter}
+        onClick={handleOpen}
       >
         {hoverText}
       </Typography>
+
+      {/* Modal secreto */}
+      <SecretModal
+        open={open}
+        onClose={handleClose}
+        secretId={secretId}
+        imageURL={secret2}
+        imageURL2={secret}
+        spotifyURL="https://open.spotify.com/embed/track/0DU5ltQGfDPRgH69lDI3vw?utm_source=generator"
+        trackTitle="Black Hole"
+      />
+
+      {/* Botón de progreso de secretos */}
+      <Button
+        disabled
+        sx={{
+          position: "fixed",
+          bottom: 16,
+          right: { xs: 0, sm: 150 },
+          transform: { xs: "translateX(-50%)", sm: "none" },
+          width: 220,
+          height: 50,
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "white !important",
+          // Fondo con efecto de progreso: se llena desde la izquierda según progressPercentage
+          background: `linear-gradient(to right,rgb(165, 165, 165) ${progressPercentage}%, #555 ${progressPercentage}%)`,
+          transition: "background 0.5s ease",
+          borderRadius: 2,
+          zIndex: 99999,
+        }}
+      >
+        Secretos: {foundCount} / {totalSecrets}
+      </Button>
     </Box>
   );
 };

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Box, keyframes } from "@mui/material";
 import astronaut from "../assets/BlackHole/edit/astronauta.png";
 import astronautBackground from "../assets/BlackHole/edit/astronautaBackground.jpg";
+import SecretModal from "../components/SecretModal";
+import secret from "../assets/Draws/8.png";
+import secret2 from "../assets/Draws/2.png";
 
 // Animación para simular un black hole
 const blackHoleAnimation = keyframes`
@@ -59,6 +62,10 @@ const floatingAnimation = keyframes`
 
 const Video: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [open, setOpen] = useState(false);
+  const secretId = 2; // O el id que corresponda
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
@@ -170,6 +177,7 @@ const Video: React.FC = () => {
         component="img"
         src={astronaut}
         alt="Astronaut"
+        onClick={handleOpen}
         sx={{
           position: "absolute",
           bottom: 20,
@@ -185,6 +193,16 @@ const Video: React.FC = () => {
             animation: `${noiseAnimation} 0.5s steps(5, end) infinite`,
           },
         }}
+      />
+
+      <SecretModal
+        open={open}
+        onClose={handleClose}
+        secretId={secretId}
+        imageURL={secret}
+        imageURL2={secret2}
+        trackTitle="Black Hole"
+        spotifyURL="https://open.spotify.com/embed/track/2wBnZdVWa5jVpvYRfGU7rP?utm_source=generator"
       />
 
       {/* Video de YouTube */}
