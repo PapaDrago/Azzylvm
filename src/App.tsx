@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Images from "./pages/Images";
 import Video from "./pages/Video";
 import { SecretsProvider } from "./contexts/SecretsContext";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Video />
       <Images />
       <FloatingSocialButton />
+      <Footer />
     </SecretsProvider>
   );
 }
