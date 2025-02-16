@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import backgroundImage from "../assets/BlackHole/ghost.jpg";
 import SecretModal from "../components/SecretModal";
+import JourneyModal from "../components/JourneyModal";
 import secret from "../assets/Draws/4.png";
 import secret2 from "../assets/Draws/14.png";
 import { SecretsContext } from "../contexts/SecretsContext";
@@ -21,11 +22,14 @@ const getRandomText = (length: number) => {
 const Home: React.FC = () => {
   const [hoverText, setHoverText] = useState("Próximamente");
   const originalText = "Próximamente";
-  const [open, setOpen] = useState(false);
-  const secretId = 1; // El id del secreto actual
+  const [secretModalOpen, setSecretModalOpen] = useState(false);
+  const [journeyModalOpen, setJourneyModalOpen] = useState(false);
+  const secretId = 1; // Id del secreto actual
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleSecretOpen = () => setSecretModalOpen(true);
+  const handleSecretClose = () => setSecretModalOpen(false);
+  const handleJourneyOpen = () => setJourneyModalOpen(true);
+  const handleJourneyClose = () => setJourneyModalOpen(false);
 
   const handleMouseEnter = () => {
     const textLength = originalText.length;
@@ -48,11 +52,13 @@ const Home: React.FC = () => {
     const intervalId = setInterval(randomizeText, 80);
   };
 
-  // Accedemos al contexto de secretos para calcular el progreso
+  // Obtenemos el estado de los secretos desde el contexto
   const { secrets } = useContext(SecretsContext);
   const totalSecrets = secrets.length;
   const foundCount = secrets.filter((s) => s.found).length;
   const progressPercentage = (foundCount / totalSecrets) * 100;
+
+  const allSecretsFound = foundCount === totalSecrets;
 
   return (
     <Box
@@ -101,15 +107,15 @@ const Home: React.FC = () => {
           },
         }}
         onMouseEnter={handleMouseEnter}
-        onClick={handleOpen}
+        onClick={handleSecretOpen}
       >
         {hoverText}
       </Typography>
 
       {/* Modal secreto */}
       <SecretModal
-        open={open}
-        onClose={handleClose}
+        open={secretModalOpen}
+        onClose={handleSecretClose}
         secretId={secretId}
         imageURL={secret2}
         imageURL2={secret}
@@ -117,9 +123,10 @@ const Home: React.FC = () => {
         trackTitle="Black Hole"
       />
 
-      {/* Botón de progreso de secretos */}
+      {/* Botón de progreso / Comienza el viaje */}
       <Button
-        disabled
+        onClick={allSecretsFound ? handleJourneyOpen : undefined}
+        disabled={!allSecretsFound}
         sx={{
           position: "fixed",
           bottom: 16,
@@ -130,15 +137,27 @@ const Home: React.FC = () => {
           fontWeight: "bold",
           fontSize: "1rem",
           color: "white !important",
-          // Fondo con efecto de progreso: se llena desde la izquierda según progressPercentage
-          background: `linear-gradient(to right,rgb(165, 165, 165) ${progressPercentage}%, #555 ${progressPercentage}%)`,
+          background: allSecretsFound
+            ? "linear-gradient(to right, #b49a6a, #a49d41d0)"
+            : `linear-gradient(to right,rgb(165, 165, 165) ${progressPercentage}%, #555 ${progressPercentage}%)`,
           transition: "background 0.5s ease",
           borderRadius: 2,
           zIndex: 99999,
+          animation: allSecretsFound ? "pulse 2s infinite" : "none",
+          "@keyframes pulse": {
+            "0%": { transform: "scale(1)" },
+            "50%": { transform: "scale(1.05)" },
+            "100%": { transform: "scale(1)" },
+          },
         }}
       >
-        Secretos: {foundCount} / {totalSecrets}
+        {allSecretsFound
+          ? "Comienza el viaje"
+          : `Secretos: ${foundCount} / ${totalSecrets}`}
       </Button>
+
+      {/* Modal del viaje */}
+      <JourneyModal open={journeyModalOpen} onClose={handleJourneyClose} />
     </Box>
   );
 };
