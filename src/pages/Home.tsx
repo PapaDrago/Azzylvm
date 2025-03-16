@@ -3,8 +3,10 @@ import { Box, Typography, Button } from "@mui/material";
 import backgroundImage from "../assets/BlackHole/ghost.jpg";
 import SecretModal from "../components/SecretModal";
 import JourneyModal from "../components/JourneyModal";
-import secret from "../assets/Draws/4.png";
-import secret2 from "../assets/Draws/14.png";
+// import secret from "../assets/Draws/4.png";
+// import secret2 from "../assets/Draws/14.png";
+import secret from "../assets/Draws/7.png";
+import secret2 from "../assets/Draws/9.png";
 import { SecretsContext } from "../contexts/SecretsContext";
 
 const getRandomText = (length: number) => {
@@ -78,6 +80,7 @@ const Home: React.FC = () => {
         p: 4,
         pt: { xs: 16, md: 0 },
       }}
+      id="inicio"
     >
       {/* Texto principal */}
       <Typography
@@ -119,7 +122,7 @@ const Home: React.FC = () => {
         secretId={secretId}
         imageURL={secret2}
         imageURL2={secret}
-        spotifyURL="https://open.spotify.com/embed/track/0DU5ltQGfDPRgH69lDI3vw?utm_source=generator"
+        spotifyURL="https://open.spotify.com/embed/track/6Ju3LqDLZNIqXL53H12ZW6?utm_source=generator"
         trackTitle="Black Hole"
       />
 

@@ -100,6 +100,7 @@ const Video: React.FC = () => {
         alignItems: "center",
         justifyContent: "center",
       }}
+      id="videos"
     >
       {/* Black hole effect */}
       <Box
@@ -202,7 +203,7 @@ const Video: React.FC = () => {
         imageURL={secret}
         imageURL2={secret2}
         trackTitle="Black Hole"
-        spotifyURL="https://open.spotify.com/embed/track/2wBnZdVWa5jVpvYRfGU7rP?utm_source=generator"
+        spotifyURL="https://open.spotify.com/embed/track/0SL8eKNBNIkOLY8Lold13n?utm_source=generator"
       />
 
       {/* Video de YouTube */}

@@ -15,23 +15,31 @@ const Header: React.FC = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
+  // Función para desplazarse al elemento con el id especificado
+  const handleScroll = (anchorId: string) => {
+    const element = document.getElementById(anchorId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "rgba(0, 0, 0, 0.6)", // Transparencia
-        backdropFilter: "blur(6px)", // Efecto de desenfoque
-        backgroundImage: `url(${noiseTexture})`, // Textura de ruido
-        backgroundRepeat: "repeat", // Patrón repetido
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        backdropFilter: "blur(6px)",
+        backgroundImage: `url(${noiseTexture})`,
+        backgroundRepeat: "repeat",
         backgroundBlendMode: "overlay",
         boxShadow: "none",
-        animation: "staticNoise 3s steps(20) infinite", // Animación de estática más lenta
+        animation: "staticNoise 3s steps(20) infinite",
         "@keyframes staticNoise": {
           "0%": {
             backgroundPosition: "0 0",
           },
           "100%": {
-            backgroundPosition: "200px 200px", // Simula movimiento en todas direcciones
+            backgroundPosition: "200px 200px",
           },
         },
       }}
@@ -48,15 +56,9 @@ const Header: React.FC = () => {
         <Box sx={{ flexGrow: 1 }} />
         {!isSmallScreen && (
           <Stack direction="row" spacing={8} sx={{ marginRight: 15 }}>
-            <NavButton onClick={() => console.log("Ir a Inicio")}>
-              Inicio
-            </NavButton>
-            <NavButton onClick={() => console.log("Ir a Black Hole")}>
-              Black Hole
-            </NavButton>
-            <NavButton onClick={() => console.log("Ir a Videos")}>
-              Videos
-            </NavButton>
+            <NavButton onClick={() => handleScroll("inicio")}>Inicio</NavButton>
+            <NavButton onClick={() => handleScroll("videos")}>Videos</NavButton>
+            <NavButton onClick={() => handleScroll("fotos")}>Fotos</NavButton>
           </Stack>
         )}
       </Toolbar>

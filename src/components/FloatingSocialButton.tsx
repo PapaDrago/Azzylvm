@@ -11,7 +11,7 @@ import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
 import bandLogo from "../assets/Logos/Isologo Azzylum_Negro.png";
 import SecretModal from "../components/SecretModal";
 import secret from "../assets/Draws/5.png";
-import secret2 from "../assets/Draws/7.png";
+import secret2 from "../assets/Draws/10.png";
 
 const actions = [
   {
@@ -110,7 +110,7 @@ const FloatingSocialButton: React.FC = () => {
         secretId={4}
         imageURL={secret}
         imageURL2={secret2}
-        spotifyURL="https://open.spotify.com/embed/track/64l9IXCqGpYpp4ZXQY5ch6?utm_source=generator"
+        spotifyURL="https://open.spotify.com/embed/track/37KrcYMI6pQL1whDX1hJQu?utm_source=generator"
         trackTitle="Black Hole"
       />
     </>

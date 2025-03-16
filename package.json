@@ -2,7 +2,7 @@
   "name": "azzylvm",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://papadrago.github.io/Azzylvm/",
+  "homepage": "https://azzylvm.com",
   "type": "module",
   "scripts": {
     "dev": "vite",

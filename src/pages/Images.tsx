@@ -78,6 +78,7 @@ const Images: React.FC = () => {
         backgroundPosition: "center",
         py: 4,
       }}
+      id="fotos"
     >
       <Container>
         <Grid2 container spacing={2} m={4}>
@@ -178,7 +179,7 @@ const Images: React.FC = () => {
         secretId={3}
         imageURL={secret}
         imageURL2={secret2}
-        spotifyURL="https://open.spotify.com/embed/track/4xAmbn7xiy6wGOs4oaxv70?utm_source=generator"
+        spotifyURL="https://open.spotify.com/embed/track/59sGWiPMQzFBT6h8V0oDdi?utm_source=generator"
         trackTitle="The Only Light"
       />
     </Box>
