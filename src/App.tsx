@@ -5,6 +5,7 @@ import Images from "./pages/Images";
 import Video from "./pages/Video";
 import { SecretsProvider } from "./contexts/SecretsContext";
 import Footer from "./components/Footer";
+import Instagram from "./components/Instagram";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Home />
       <Video />
       <Images />
+      <Instagram />
       <FloatingSocialButton />
       <Footer />
     </SecretsProvider>
