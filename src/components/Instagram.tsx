@@ -21,7 +21,7 @@ const Instagram: React.FC = () => {
       <Container>
         <Grid2 container py={5}>
           <iframe
-            src="//lightwidget.com/widgets/fea23021226952d782905d5591dbad64.html"
+            src="https://lightwidget.com/widgets/fea23021226952d782905d5591dbad64.html"
             allowTransparency={true}
             className="lightwidget-widget"
             style={{
