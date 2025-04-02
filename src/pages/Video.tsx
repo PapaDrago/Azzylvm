@@ -210,8 +210,8 @@ const Video: React.FC = () => {
       <iframe
         width="850"
         height="500"
-        src="https://www.youtube.com/embed/Yp50GlV_b14?enablejsapi=1"
-        title="Azzylum - In The Highest (Official Music Video)"
+        src="https://www.youtube.com/embed/yA-zl6eZ6Dc?enablejsapi=1"
+        title="Azzylvm- Black Hole (Official Lyric Video)"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
         style={{
