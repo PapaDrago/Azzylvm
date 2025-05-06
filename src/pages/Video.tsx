@@ -202,8 +202,7 @@ const Video: React.FC = () => {
         secretId={secretId}
         imageURL={secret}
         imageURL2={secret2}
-        trackTitle="Black Hole"
-        spotifyURL="https://open.spotify.com/embed/track/0SL8eKNBNIkOLY8Lold13n?utm_source=generator"
+        spotifyURL="https://open.spotify.com/embed/track/6HZdQNnUKVMbdn86vGKjha?utm_source=generator"
       />
 
       {/* Video de YouTube */}

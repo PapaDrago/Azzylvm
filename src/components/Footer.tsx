@@ -4,16 +4,17 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import KeyIcon from "@mui/icons-material/Key";
+import { useTranslation } from "react-i18next";
 import SecretModal from "../components/SecretModal";
-// import secretImg from "../assets/Draws/10.png";
-// import secretImg2 from "../assets/Draws/9.png";
 import secretImg from "../assets/Draws/4.png";
 import secretImg2 from "../assets/Draws/14.png";
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
   const [secretModalOpen, setSecretModalOpen] = useState(false);
   const handleSecretOpen = () => setSecretModalOpen(true);
   const handleSecretClose = () => setSecretModalOpen(false);
+  const year = new Date().getFullYear();
 
   return (
     <>
@@ -24,7 +25,7 @@ const Footer: React.FC = () => {
           color: "white",
           py: 3,
           borderTop: "1px solid #333",
-          position: "relative", // Importante para posicionar el elemento del desarrollador
+          position: "relative",
         }}
       >
         <Container
@@ -35,7 +36,7 @@ const Footer: React.FC = () => {
             textAlign: "center",
           }}
         >
-          {/* Enlaces de redes sociales y el icono secreto */}
+          {/* Redes sociales y secreto */}
           <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
             <IconButton
               component={Link}
@@ -61,22 +62,21 @@ const Footer: React.FC = () => {
             >
               <YouTubeIcon />
             </IconButton>
-            {/* Nuevo icono para el quinto secreto */}
             <IconButton onClick={handleSecretOpen} sx={{ color: "white" }}>
               <KeyIcon />
             </IconButton>
           </Box>
 
-          {/* Información final */}
+          {/* Textos traducibles */}
           <Typography variant="body2" sx={{ mb: 1 }}>
-            © {new Date().getFullYear()} Azzylum. Todos los derechos reservados.
+            {t("footer.copyright", { year })}
           </Typography>
           <Typography variant="caption" sx={{ fontStyle: "italic" }}>
-            Stars can't shine whitout darkness.
+            {t("footer.tagline")}
           </Typography>
         </Container>
 
-        {/* Texto del desarrollador en la esquina inferior izquierda */}
+        {/* Desarrollador */}
         <Link
           href="https://www.linkedin.com/in/oscar-huerta-b08b30128/"
           target="_blank"
@@ -90,11 +90,11 @@ const Footer: React.FC = () => {
             fontSize: "0.75rem",
           }}
         >
-          Desarrollado por Oscar Huerta
+          {t("footer.developedBy", { name: "Oscar Huerta" })}
         </Link>
       </Box>
 
-      {/* Modal para el quinto secreto */}
+      {/* Modal del quinto secreto */}
       <SecretModal
         open={secretModalOpen}
         onClose={handleSecretClose}
@@ -102,7 +102,6 @@ const Footer: React.FC = () => {
         imageURL={secretImg}
         imageURL2={secretImg2}
         spotifyURL="https://open.spotify.com/embed/track/5Z7D96k9JPtbZC25ikUDz8?utm_source=generator"
-        trackTitle="The Fifth Secret"
       />
     </>
   );

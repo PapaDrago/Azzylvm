@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DownloadIcon from "@mui/icons-material/Download";
+import { useTranslation } from "react-i18next";
 import trip from "../assets/Trip/trip.jpg";
 import booklet from "../assets/Downloads/booklet.pdf";
 import draws from "../assets/Downloads/draws.pdf";
@@ -19,8 +20,10 @@ interface JourneyModalProps {
 }
 
 const JourneyModal: React.FC<JourneyModalProps> = ({ open, onClose }) => {
+  const { t } = useTranslation();
+
   const style = {
-    position: "absolute",
+    position: "absolute" as const,
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -38,55 +41,51 @@ const JourneyModal: React.FC<JourneyModalProps> = ({ open, onClose }) => {
   const numParticles = 100;
   const particles = Array.from({ length: numParticles }, () => ({
     angle: Math.random() * 360,
-    delay: Math.random() * 2, // retraso entre 0 y 2 segundos
-    distance: 100 + Math.random() * 100, // recorrido entre 100 y 200px
+    delay: Math.random() * 2,
+    distance: 100 + Math.random() * 100,
   }));
 
   return (
     <Modal open={open} onClose={onClose} aria-labelledby="journey-modal-title">
       <Box sx={style}>
-        {/* Definición de keyframes para las líneas: efecto inverso */}
         <style>{`
           @keyframes particleIn {
             0% { transform: rotate(var(--angle)) translateY(0); opacity: 0; }
             100% { transform: rotate(var(--angle)) translateY(var(--distance)); opacity: 1; }
           }
         `}</style>
-        {/* Botón para cerrar */}
+
         <IconButton
           onClick={onClose}
           sx={{ position: "absolute", top: 8, right: 8, color: "white" }}
-          aria-label="close"
+          aria-label={t("journey.closeLabel")}
         >
           <CloseIcon />
         </IconButton>
 
-        {/* Título */}
         <Typography id="journey-modal-title" variant="h6" component="h2" mb={2}>
-          Viaje del astronauta
+          {t("journey.title")}
         </Typography>
 
-        {/* Contenedor de la imagen con overlay de líneas */}
         <Box
           sx={{
             position: "relative",
             display: "flex",
             justifyContent: "center",
             mb: 2,
-            overflow: "hidden", // Clipa el overlay a la imagen
+            overflow: "hidden",
           }}
         >
           <Box
             component="img"
             src={trip}
-            alt="Viaje del astronauta"
+            alt={t("journey.alt")}
             sx={{
               width: { xs: "100%", sm: "80%", md: "60%" },
               maxWidth: 400,
               borderRadius: 2,
             }}
           />
-          {/* Overlay de partículas (líneas) */}
           <Box
             sx={{
               position: "absolute",
@@ -104,13 +103,12 @@ const JourneyModal: React.FC<JourneyModalProps> = ({ open, onClose }) => {
                   position: "absolute",
                   left: "50%",
                   top: "50%",
-                  width: 1.1, // Línea más delgada
-                  height: 16, // Línea un poco más corta
+                  width: 1.1,
+                  height: 16,
                   backgroundColor: "white",
                   transformOrigin: "top center",
                   animation: "particleIn 1.5s linear infinite",
                   animationDelay: `${particle.delay}s`,
-                  // Variables CSS para el ángulo y la distancia
                   "--angle": `${particle.angle}deg`,
                   "--distance": `${particle.distance}px`,
                 }}
@@ -119,7 +117,6 @@ const JourneyModal: React.FC<JourneyModalProps> = ({ open, onClose }) => {
           </Box>
         </Box>
 
-        {/* Botones de descarga */}
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12} sm={4}>
             <Button
@@ -130,7 +127,7 @@ const JourneyModal: React.FC<JourneyModalProps> = ({ open, onClose }) => {
               download
               startIcon={<DownloadIcon />}
             >
-              Dibujos de la infancia
+              {t("journey.button.draws")}
             </Button>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -142,7 +139,7 @@ const JourneyModal: React.FC<JourneyModalProps> = ({ open, onClose }) => {
               download
               startIcon={<DownloadIcon />}
             >
-              Booklet
+              {t("journey.button.booklet")}
             </Button>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -153,7 +150,7 @@ const JourneyModal: React.FC<JourneyModalProps> = ({ open, onClose }) => {
               disabled
               startIcon={<DownloadIcon />}
             >
-              Black Hole Album
+              {t("journey.button.album")}
             </Button>
           </Grid>
         </Grid>

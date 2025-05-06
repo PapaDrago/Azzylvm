@@ -111,7 +111,6 @@ const FloatingSocialButton: React.FC = () => {
         imageURL={secret}
         imageURL2={secret2}
         spotifyURL="https://open.spotify.com/embed/track/37KrcYMI6pQL1whDX1hJQu?utm_source=generator"
-        trackTitle="Black Hole"
       />
     </>
   );

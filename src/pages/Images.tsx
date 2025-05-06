@@ -180,7 +180,6 @@ const Images: React.FC = () => {
         imageURL={secret}
         imageURL2={secret2}
         spotifyURL="https://open.spotify.com/embed/track/59sGWiPMQzFBT6h8V0oDdi?utm_source=generator"
-        trackTitle="The Only Light"
       />
     </Box>
   );

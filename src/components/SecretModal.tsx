@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Modal, Box, Typography, IconButton, Grid2 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 import { SecretsContext } from "../contexts/SecretsContext";
 import noiseTexture from "../assets/noiseTexture.png";
 
@@ -11,7 +12,6 @@ interface SecretModalProps {
   imageURL: string;
   imageURL2?: string;
   spotifyURL: string;
-  trackTitle: string;
 }
 
 const SecretModal: React.FC<SecretModalProps> = ({
@@ -22,9 +22,9 @@ const SecretModal: React.FC<SecretModalProps> = ({
   imageURL2,
   spotifyURL,
 }) => {
+  const { t } = useTranslation();
   const { markSecretFound } = useContext(SecretsContext);
 
-  // Cuando el modal se abre, se marca el secreto como encontrado
   useEffect(() => {
     if (open) {
       markSecretFound(secretId);
@@ -32,33 +32,26 @@ const SecretModal: React.FC<SecretModalProps> = ({
   }, [open, secretId, markSecretFound]);
 
   const style = {
-    position: "absolute",
+    position: "absolute" as const,
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: { xs: "90%", sm: "80%", md: "60%" },
-    bgcolor: "grey.900", // Fondo oscuro
-    color: "white", // Texto en blanco
+    bgcolor: "grey.900",
+    color: "white",
     boxShadow: 24,
     p: 4,
     outline: "none",
     borderRadius: 2,
-    animation: "modalEntry 0.5s ease-out", // Animación de entrada
+    animation: "modalEntry 0.5s ease-out",
     "@keyframes modalEntry": {
-      "0%": {
-        opacity: 0,
-        transform: "translate(-50%, -60%)",
-      },
-      "100%": {
-        opacity: 1,
-        transform: "translate(-50%, -50%)",
-      },
+      "0%": { opacity: 0, transform: "translate(-50%, -60%)" },
+      "100%": { opacity: 1, transform: "translate(-50%, -50%)" },
     },
-    maxHeight: "90vh", // Máxima altura del modal
-    overflowY: "auto", // Habilita scroll vertical si el contenido excede la altura
+    maxHeight: "90vh",
+    overflowY: "auto",
   };
 
-  // Estilo para el contenedor de cada imagen con filtro permanente
   const imageContainerStyle = {
     position: "relative",
     display: "inline-block",
@@ -99,23 +92,21 @@ const SecretModal: React.FC<SecretModalProps> = ({
       aria-labelledby={`secret-modal-${secretId}`}
     >
       <Box sx={style}>
-        {/* Botón para cerrar */}
         <IconButton
           onClick={onClose}
           sx={{ position: "absolute", top: 8, right: 8, color: "white" }}
-          aria-label="close"
+          aria-label={t("secret.closeLabel")}
         >
           <CloseIcon />
         </IconButton>
 
-        {/* Título del modal */}
         <Typography
           id={`secret-modal-${secretId}`}
           variant="h6"
           component="h2"
           mb={2}
         >
-          Dibujos de la infancia: {secretId}
+          {t("secret.title", { id: secretId })}
         </Typography>
 
         {/* Imágenes en el centro con filtro permanente */}
@@ -130,21 +121,18 @@ const SecretModal: React.FC<SecretModalProps> = ({
           )}
         </Grid2>
 
-        <Grid2 container>
+        <Box mt={2}>
           <iframe
-            style={{
-              borderRadius: "16px",
-              backgroundColor: "transparent",
-            }}
+            style={{ borderRadius: "16px", backgroundColor: "transparent" }}
             src={spotifyURL}
             width="100%"
             height="152"
             frameBorder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
-            title="Spotify Audio"
-          ></iframe>
-        </Grid2>
+            title={t("secret.spotifyTitle")}
+          />
+        </Box>
       </Box>
     </Modal>
   );

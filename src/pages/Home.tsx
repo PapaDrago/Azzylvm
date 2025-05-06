@@ -7,6 +7,7 @@ import JourneyModal from "../components/JourneyModal";
 // import secret2 from "../assets/Draws/14.png";
 import secret from "../assets/Draws/7.png";
 import secret2 from "../assets/Draws/9.png";
+import { useTranslation } from "react-i18next";
 import { SecretsContext } from "../contexts/SecretsContext";
 
 const getRandomText = (length: number) => {
@@ -22,8 +23,9 @@ const getRandomText = (length: number) => {
 };
 
 const Home: React.FC = () => {
-  const [hoverText, setHoverText] = useState("Próximamente");
-  const originalText = "Próximamente";
+  const { t } = useTranslation();
+  const originalText = t("home.comingSoon");
+  const [hoverText, setHoverText] = useState(originalText);
   const [secretModalOpen, setSecretModalOpen] = useState(false);
   const [journeyModalOpen, setJourneyModalOpen] = useState(false);
   const secretId = 1; // Id del secreto actual
@@ -122,8 +124,7 @@ const Home: React.FC = () => {
         secretId={secretId}
         imageURL={secret2}
         imageURL2={secret}
-        spotifyURL="https://open.spotify.com/embed/track/6Ju3LqDLZNIqXL53H12ZW6?utm_source=generator"
-        trackTitle="Black Hole"
+        spotifyURL="https://open.spotify.com/embed/track/0fhOcE7yNKhVlvMaN94NvG?utm_source=generator"
       />
 
       {/* Botón de progreso / Comienza el viaje */}
@@ -155,8 +156,11 @@ const Home: React.FC = () => {
         }}
       >
         {allSecretsFound
-          ? "Comienza el viaje"
-          : `Secretos: ${foundCount} / ${totalSecrets}`}
+          ? t("home.startJourney")
+          : t("home.secretsCount", {
+              found: foundCount,
+              total: totalSecrets,
+            })}
       </Button>
 
       {/* Modal del viaje */}

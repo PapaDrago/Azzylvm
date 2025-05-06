@@ -1,0 +1,37 @@
+{
+  "home": {
+    "title": "Black Hole",
+    "comingSoon": "Próximamente",
+    "startJourney": "Comienza el viaje",
+    "secretsCount": "Secretos: {{found}} / {{total}}"
+  },
+  "header": {
+    "logoAlt": "Logotipo de Azzylvm",
+    "nav": {
+      "inicio": "Inicio",
+      "videos": "Videos",
+      "fotos": "Fotos"
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} Azzylvm. Todos los derechos reservados.",
+    "tagline": "Stars can't shine whitout darkness.",
+    "developedBy": "Desarrollado por {{name}}"
+  },
+  "journey": {
+    "closeLabel": "Cerrar modal",
+    "title": "Viaje del astronauta",
+    "alt": "Imagen del viaje del astronauta",
+    "button": {
+      "draws": "Dibujos de la infancia",
+      "booklet": "Booklet",
+      "album": "Black Hole Album"
+    }
+  },
+  "secret": {
+    "closeLabel": "Cerrar",
+    "title": "Dibujos de la infancia {{id}}",
+    "alt": "Dibujo de la infancia",
+    "spotifyTitle": "Reproductor de Spotify"
+  }
+}

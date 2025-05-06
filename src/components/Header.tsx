@@ -7,11 +7,13 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import NavButton from "./NavButton";
 import logo from "../assets/Logos/Logotipo_Negro.png";
 import noiseTexture from "../assets/noiseTexture.png";
 
 const Header: React.FC = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -48,7 +50,7 @@ const Header: React.FC = () => {
         <img
           src={logo}
           width={isSmallScreen ? 150 : 250}
-          alt="Logotipo de Azzylvm"
+          alt={t("header.logoAlt")}
           style={{
             filter: "invert(1)",
           }}
@@ -56,9 +58,15 @@ const Header: React.FC = () => {
         <Box sx={{ flexGrow: 1 }} />
         {!isSmallScreen && (
           <Stack direction="row" spacing={8} sx={{ marginRight: 15 }}>
-            <NavButton onClick={() => handleScroll("inicio")}>Inicio</NavButton>
-            <NavButton onClick={() => handleScroll("videos")}>Videos</NavButton>
-            <NavButton onClick={() => handleScroll("fotos")}>Fotos</NavButton>
+            <NavButton onClick={() => handleScroll("inicio")}>
+              {t("header.nav.inicio")}
+            </NavButton>
+            <NavButton onClick={() => handleScroll("videos")}>
+              {t("header.nav.videos")}
+            </NavButton>
+            <NavButton onClick={() => handleScroll("fotos")}>
+              {t("header.nav.fotos")}
+            </NavButton>
           </Stack>
         )}
       </Toolbar>
