@@ -94,8 +94,20 @@ const Home: React.FC = () => {
           color: "#FFFFFF",
           fontSize: { xs: "5rem", sm: "6rem", md: "8rem", lg: 200 },
         }}
+        component="span"
       >
-        Black Hole
+        Black Hole{" "}
+        <Typography
+          component="span"
+          sx={{
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            color: "#FFFFFF",
+            fontSize: { xs: "5rem", sm: "6rem", md: "8rem", lg: 200 },
+          }}
+        >
+          Album
+        </Typography>
       </Typography>
 
       {/* Subtexto "Próximamente" */}

@@ -6,13 +6,15 @@ import Video from "./pages/Video";
 import { SecretsProvider } from "./contexts/SecretsContext";
 import Footer from "./components/Footer";
 import { Box } from "@mui/material";
+import SocialSection from "./pages/SocialSection";
 
 function App() {
   return (
     <SecretsProvider>
       <Header />
-      <Home />
       <Video />
+      <SocialSection />
+      <Home />
       <Images />
       <Box sx={{ backgroundColor: "#0A0A0A" }}>
         <iframe

@@ -58,11 +58,14 @@ const Header: React.FC = () => {
         <Box sx={{ flexGrow: 1 }} />
         {!isSmallScreen && (
           <Stack direction="row" spacing={8} sx={{ marginRight: 15 }}>
-            <NavButton onClick={() => handleScroll("inicio")}>
+            {/* <NavButton onClick={() => handleScroll("inicio")}>
               {t("header.nav.inicio")}
-            </NavButton>
+            </NavButton> */}
             <NavButton onClick={() => handleScroll("videos")}>
               {t("header.nav.videos")}
+            </NavButton>
+            <NavButton onClick={() => handleScroll("social")}>
+              {t("header.nav.social")}
             </NavButton>
             <NavButton onClick={() => handleScroll("fotos")}>
               {t("header.nav.fotos")}

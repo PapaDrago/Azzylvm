@@ -1,71 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { Box, keyframes } from "@mui/material";
+import { Box, keyframes, IconButton } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import astronaut from "../assets/BlackHole/edit/astronauta.png";
 import astronautBackground from "../assets/BlackHole/edit/astronautaBackground.jpg";
 import SecretModal from "../components/SecretModal";
 import secret from "../assets/Draws/8.png";
 import secret2 from "../assets/Draws/2.png";
+import { useTheme, useMediaQuery } from "@mui/material";
 
-// Animación para simular un black hole
+// Animaciones...
 const blackHoleAnimation = keyframes`
-  0% {
-    transform: scale(1) translate(-50%, -50%) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(5) translate(-50%, -50%) rotate(720deg);
-    opacity: 0;
-  }
+  0% { transform: scale(1) translate(-50%, -50%) rotate(0deg); opacity: 1; }
+  100% { transform: scale(5) translate(-50%, -50%) rotate(720deg); opacity: 0; }
 `;
-
-// Animación para ruido
 const noiseAnimation = keyframes`
-  0% {
-    filter: contrast(1) brightness(1);
-    transform: translate(0, 0);
-  }
-  25% {
-    filter: contrast(1.5) brightness(1.2);
-    transform: translate(-2px, 2px);
-  }
-  50% {
-    filter: contrast(0.8) brightness(0.9);
-    transform: translate(2px, -2px);
-  }
-  75% {
-    filter: contrast(1.3) brightness(1.1);
-    transform: translate(-1px, -1px);
-  }
-  100% {
-    filter: contrast(1) brightness(1);
-    transform: translate(0, 0);
-  }
+  0% { filter: contrast(1) brightness(1); transform: translate(0,0); }
+  25% { filter: contrast(1.5) brightness(1.2); transform: translate(-2px,2px); }
+  50% { filter: contrast(0.8) brightness(0.9); transform: translate(2px,-2px); }
+  75% { filter: contrast(1.3) brightness(1.1); transform: translate(-1px,-1px); }
+  100% { filter: contrast(1) brightness(1); transform: translate(0,0); }
 `;
-
 const starTwinkleAnimation = keyframes`
-  0%, 100% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%,100% { opacity: 0.8; }
+  50% { opacity: 1; }
 `;
-
 const floatingAnimation = keyframes`
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 `;
 
 const Video: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [open, setOpen] = useState(false);
-  const secretId = 2; // O el id que corresponda
+  const secretId = 2;
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // ** Carrusel de videos **
+  const videoIds = [
+    "mmvlLAgfxdg?si=ZQdKUT8wxKeQ9mGN", // NOISES
+    "yA-zl6eZ6Dc", // Black Hole (oficial lyric)
+    "Yp50GlV_b14", // AZZYLVMOFICIAL
+    "HBJiGqgGesQ", // AZZYLVMOFICIAL
+    "bD1HeXXd714", // AZZYLVMOFICIAL
+  ];
+  const [currentVideo, setCurrentVideo] = useState(0);
+  const prevVideo = () =>
+    setCurrentVideo((c) => (c === 0 ? videoIds.length - 1 : c - 1));
+  const nextVideo = () =>
+    setCurrentVideo((c) => (c === videoIds.length - 1 ? 0 : c + 1));
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
@@ -76,20 +62,17 @@ const Video: React.FC = () => {
       ) {
         const data = JSON.parse(event.data);
         if (data.event === "onStateChange") {
-          // YouTube states: 1 = playing, 2 = paused
           setIsPlaying(data.info === 1);
         }
       }
     };
-
     window.addEventListener("message", onMessage);
-    return () => {
-      window.removeEventListener("message", onMessage);
-    };
+    return () => window.removeEventListener("message", onMessage);
   }, []);
 
   return (
     <Box
+      id="videos"
       sx={{
         position: "relative",
         width: "100%",
@@ -100,7 +83,6 @@ const Video: React.FC = () => {
         alignItems: "center",
         justifyContent: "center",
       }}
-      id="videos"
     >
       {/* Black hole effect */}
       <Box
@@ -117,11 +99,10 @@ const Video: React.FC = () => {
           zIndex: 1,
         }}
       />
-
-      {/* Particles being sucked into the black hole */}
-      {[...Array(50)].map((_, index) => (
+      {/* Partículas */}
+      {[...Array(50)].map((_, i) => (
         <Box
-          key={index}
+          key={i}
           sx={{
             position: "absolute",
             top: `${Math.random() * 100}%`,
@@ -135,17 +116,16 @@ const Video: React.FC = () => {
           }}
         />
       ))}
-
-      {/* Twinkling stars */}
-      {[...Array(100)].map((_, index) => (
+      {/* Estrellas titilando */}
+      {[...Array(100)].map((_, i) => (
         <Box
-          key={index}
+          key={i}
           sx={{
             position: "absolute",
             top: `${Math.random() * 100}%`,
             left: `${Math.random() * 100}%`,
-            width: "0.1px", // Reducido de 1px a 0.5px
-            height: "0.1px", // Reducido de 1px a 0.5px
+            width: "0.1px",
+            height: "0.1px",
             backgroundColor: "white",
             borderRadius: "50%",
             animation: `${starTwinkleAnimation} ${
@@ -173,7 +153,7 @@ const Video: React.FC = () => {
         }}
       />
 
-      {/* Astronauta flotante con hover y efecto al reproducir */}
+      {/* Astronauta */}
       <Box
         component="img"
         src={astronaut}
@@ -205,20 +185,52 @@ const Video: React.FC = () => {
         spotifyURL="https://open.spotify.com/embed/track/6HZdQNnUKVMbdn86vGKjha?utm_source=generator"
       />
 
-      {/* Video de YouTube */}
-      <iframe
-        width="850"
-        height="500"
-        src="https://www.youtube.com/embed/yA-zl6eZ6Dc?enablejsapi=1"
-        title="Azzylvm- Black Hole (Official Lyric Video)"
+      {/* Iframe del video actual */}
+      <Box
+        component="iframe"
+        src={`https://www.youtube.com/embed/${videoIds[currentVideo]}?enablejsapi=1`}
+        title={`video-${videoIds[currentVideo]}`}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
-        style={{
+        frameBorder="0"
+        sx={{
           position: "relative",
           zIndex: 4,
+          borderRadius: 2,
+          boxShadow: "0 0 20px rgba(0,0,0,0.5)",
+          width: { xs: "90%", sm: "80%", md: "60%" },
+          height: { xs: 200, sm: 400, md: 500 },
         }}
-        frameBorder={0}
       />
+      <IconButton
+        onClick={prevVideo}
+        sx={{
+          position: isMobile ? "static" : "absolute",
+          left: isMobile ? "auto" : 16,
+          top: isMobile ? "auto" : "50%",
+          transform: isMobile ? "none" : "translateY(-50%)",
+          color: "white",
+          mt: isMobile ? 2 : 0,
+          mx: isMobile ? 1 : 0,
+        }}
+      >
+        <ChevronLeftIcon fontSize="large" />
+      </IconButton>
+
+      <IconButton
+        onClick={nextVideo}
+        sx={{
+          position: isMobile ? "static" : "absolute",
+          right: isMobile ? "auto" : 16,
+          top: isMobile ? "auto" : "50%",
+          transform: isMobile ? "none" : "translateY(-50%)",
+          color: "white",
+          mt: isMobile ? 2 : 0,
+          mx: isMobile ? 1 : 0,
+        }}
+      >
+        <ChevronRightIcon fontSize="large" />
+      </IconButton>
     </Box>
   );
 };

@@ -10,7 +10,8 @@
     "nav": {
       "inicio": "Inicio",
       "videos": "Videos",
-      "fotos": "Fotos"
+      "fotos": "Fotos",
+      "social": "Redes sociales"
     }
   },
   "footer": {
@@ -33,5 +34,8 @@
     "title": "Dibujos de la infancia {{id}}",
     "alt": "Dibujo de la infancia",
     "spotifyTitle": "Reproductor de Spotify"
+  },
+  "social": {
+    "follow": "Síguenos en nuestras redes sociales"
   }
 }

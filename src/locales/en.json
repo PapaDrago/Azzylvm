@@ -10,7 +10,8 @@
     "nav": {
       "inicio": "Home",
       "videos": "Videos",
-      "fotos": "Photos"
+      "fotos": "Photos",
+      "social": "Social media"
     }
   },
   "footer": {
@@ -33,5 +34,8 @@
     "title": "Childhood Drawings {{id}}",
     "alt": "Childhood drawing",
     "spotifyTitle": "Spotify Player"
+  },
+  "social": {
+    "follow": "Follow us on our social media"
   }
 }
