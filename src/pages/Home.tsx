@@ -24,7 +24,7 @@ const getRandomText = (length: number) => {
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
-  const originalText = t("home.comingSoon");
+  const originalText = t("home.availableNow");
   const [hoverText, setHoverText] = useState(originalText);
   const [secretModalOpen, setSecretModalOpen] = useState(false);
   const [journeyModalOpen, setJourneyModalOpen] = useState(false);
@@ -112,7 +112,7 @@ const Home: React.FC = () => {
 
       {/* Subtexto "Próximamente" */}
       <Typography
-        variant="h5"
+        variant="h3"
         sx={{
           color: "#FFFFFF",
           opacity: 0.8,

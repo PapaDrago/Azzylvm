@@ -142,17 +142,6 @@ const JourneyModal: React.FC<JourneyModalProps> = ({ open, onClose }) => {
               {t("journey.button.booklet")}
             </Button>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              disabled
-              startIcon={<DownloadIcon />}
-            >
-              {t("journey.button.album")}
-            </Button>
-          </Grid>
         </Grid>
       </Box>
     </Modal>

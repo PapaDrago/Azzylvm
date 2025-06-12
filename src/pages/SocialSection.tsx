@@ -14,31 +14,29 @@ import { FaTiktok } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { motion, Variants } from "framer-motion";
 
-// Aquí puedes reemplazar las URL con tus enlaces
 const socialLinks = [
   {
     name: "Instagram",
     icon: <InstagramIcon fontSize="large" />,
-    url: "https://instagram.com/tu_usuario",
+    url: "https://instagram.com/azzylvm.oficial/",
   },
   {
     name: "Facebook",
     icon: <FacebookIcon fontSize="large" />,
-    url: "https://facebook.com/tu_pagina",
+    url: "https://www.facebook.com/profile.php?id=61573283477451&locale=es_LA",
   },
   {
     name: "YouTube",
     icon: <YouTubeIcon fontSize="large" />,
-    url: "https://youtube.com/tu_canal",
+    url: "https://www.youtube.com/@AzzylvmOficial",
   },
   {
     name: "TikTok",
     icon: <FaTiktok size={32} />,
-    url: "https://tiktok.com/@tu_usuario",
+    url: "https://www.tiktok.com/@azzylvm.oficial?lang=es",
   },
 ];
 
-// Variants para animación de aparición
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
   visible: {
@@ -60,6 +58,23 @@ const itemVariants: Variants = {
 const SocialSection: React.FC = () => {
   const { t } = useTranslation();
 
+  // Genera posiciones, tamaños y colores para 30 partículas
+  const particleCount = 30;
+  const [particles] = React.useState(() =>
+    Array.from({ length: particleCount }).map(() => ({
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 8 + 6, // entre 6 y 14 px
+      color: [
+        "rgba(153,153,153,0.3)",
+        "rgba(200,200,200,0.2)",
+        "rgba(120,120,120,0.25)",
+      ][Math.floor(Math.random() * 3)],
+      delay: Math.random() * 10,
+      repeatDelay: Math.random() * 15 + 5,
+    }))
+  );
+
   return (
     <Box
       component={motion.section}
@@ -75,7 +90,6 @@ const SocialSection: React.FC = () => {
         backgroundColor: "#fff",
         backgroundImage: "radial-gradient(#999 2px, transparent 2px)",
         backgroundSize: "20px 20px",
-        // Animación de movimiento de puntos hacia abajo y derecha
         animation: "moveDots 30s linear infinite",
         "@keyframes moveDots": {
           "0%": { backgroundPosition: "0 0" },
@@ -83,6 +97,32 @@ const SocialSection: React.FC = () => {
         },
       }}
     >
+      {/* Partículas suaves y grandes */}
+      {particles.map((p, i) => (
+        <motion.div
+          key={i}
+          style={{
+            position: "absolute",
+            top: `${p.y}%`,
+            left: `${p.x}%`,
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            borderRadius: "50%",
+            backgroundColor: p.color,
+            zIndex: 1,
+          }}
+          initial={{ opacity: 0, scale: 1 }}
+          animate={{ opacity: [0, 1, 0], scale: [1, 1.3, 1] }}
+          transition={{
+            delay: p.delay,
+            duration: 2,
+            times: [0, 0.5, 1],
+            repeat: Infinity,
+            repeatDelay: p.repeatDelay,
+          }}
+        />
+      ))}
+
       <Container maxWidth="md" sx={{ position: "relative", zIndex: 2 }}>
         <Typography
           component={motion.h2}

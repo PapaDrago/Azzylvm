@@ -41,6 +41,7 @@ const Video: React.FC = () => {
 
   // ** Carrusel de videos **
   const videoIds = [
+    "C3jVSDqwH3c?si=SMklesg_vSzp3JQC", // Favorite Person
     "mmvlLAgfxdg?si=ZQdKUT8wxKeQ9mGN", // NOISES
     "yA-zl6eZ6Dc", // Black Hole (oficial lyric)
     "Yp50GlV_b14", // AZZYLVMOFICIAL
@@ -202,35 +203,36 @@ const Video: React.FC = () => {
           height: { xs: 200, sm: 400, md: 500 },
         }}
       />
-      <IconButton
-        onClick={prevVideo}
-        sx={{
-          position: isMobile ? "static" : "absolute",
-          left: isMobile ? "auto" : 16,
-          top: isMobile ? "auto" : "50%",
-          transform: isMobile ? "none" : "translateY(-50%)",
-          color: "white",
-          mt: isMobile ? 2 : 0,
-          mx: isMobile ? 1 : 0,
-        }}
-      >
-        <ChevronLeftIcon fontSize="large" />
-      </IconButton>
+      {/* Solo mostrar flechas si NO es mobile */}
+      {!isMobile && (
+        <>
+          <IconButton
+            onClick={prevVideo}
+            sx={{
+              position: "absolute",
+              left: 16,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "white",
+            }}
+          >
+            <ChevronLeftIcon fontSize="large" />
+          </IconButton>
 
-      <IconButton
-        onClick={nextVideo}
-        sx={{
-          position: isMobile ? "static" : "absolute",
-          right: isMobile ? "auto" : 16,
-          top: isMobile ? "auto" : "50%",
-          transform: isMobile ? "none" : "translateY(-50%)",
-          color: "white",
-          mt: isMobile ? 2 : 0,
-          mx: isMobile ? 1 : 0,
-        }}
-      >
-        <ChevronRightIcon fontSize="large" />
-      </IconButton>
+          <IconButton
+            onClick={nextVideo}
+            sx={{
+              position: "absolute",
+              right: 16,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "white",
+            }}
+          >
+            <ChevronRightIcon fontSize="large" />
+          </IconButton>
+        </>
+      )}
     </Box>
   );
 };

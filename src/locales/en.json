@@ -3,7 +3,8 @@
     "title": "Black Hole",
     "comingSoon": "Coming Soon",
     "startJourney": "Start the Journey",
-    "secretsCount": "Secrets: {{found}} / {{total}}"
+    "secretsCount": "Secrets: {{found}} / {{total}}",
+    "availableNow": "Available Now!"
   },
   "header": {
     "logoAlt": "Azzylvm logo",
